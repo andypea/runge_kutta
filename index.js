@@ -48,36 +48,6 @@ const euler = (dy, yInitial, tInitial, tFinal, numSteps) => {
 
 const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, numStages, a, b, c) => {
 
-    if (dy.length !== yInitial.length) {
-        throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
-    }
-    
-    if (a.length !== numStages) {
-        throw `The number of a coefficient rows (${a.length}) is not equal to the number of stages minus 1 (${numStages})!`;
-    }
-   
-    for (let i = 0; i < numStages; i++) {
-        if (a[i].length !== i) {
-            throw `The number of a coefficient columns in row ${i} (${a[i].length}) is not equal to the correct value (${i + 1})!`;
-        }
-    }
-
-    if (b.length !== numStages) {
-        throw `The number of b coefficients (${b.length}) is not equal to the number of stages (${numStages})!`;  
-    }
-    
-    if (c.length !== numStages) {
-        throw `The number of c coefficients (${c.length}) is not equal to the number of stages (${numStages})!`;
-    }
-
-    if (c[0] !== 0) {
-        throw `The initial c coefficient (${c[0]}) is not equal to 0!`;
-    }
-
-    if (! Number.isInteger(numStages)) {
-        throw `The number of stages (${numStages}) is not an integer!`;
-    }
-    
     const numVars = dy.length
     const h = tFinal - tInitial;
 
@@ -143,6 +113,40 @@ const ralstonRungeKutta = (dy, yInitial, tInitial, tFinal, numSteps) => {
 
 
 const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, numStages, a, b, c) => {
+    
+    if (dy.length !== yInitial.length) {
+        throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
+    }
+    
+    if (a.length !== numStages) {
+        throw `The number of a coefficient rows (${a.length}) is not equal to the number of stages minus 1 (${numStages})!`;
+    }
+   
+    for (let i = 0; i < numStages; i++) {
+        if (a[i].length !== i) {
+            throw `The number of a coefficient columns in row ${i} (${a[i].length}) is not equal to the correct value (${i + 1})!`;
+        }
+    }
+
+    if (b.length !== numStages) {
+        throw `The number of b coefficients (${b.length}) is not equal to the number of stages (${numStages})!`;  
+    }
+    
+    if (c.length !== numStages) {
+        throw `The number of c coefficients (${c.length}) is not equal to the number of stages (${numStages})!`;
+    }
+
+    if (c[0] !== 0) {
+        throw `The initial c coefficient (${c[0]}) is not equal to 0!`;
+    }
+
+    if (! Number.isInteger(numStages)) {
+        throw `The number of stages (${numStages}) is not an integer!`;
+    }
+    
+    if (! Number.isInteger(numSteps)) {
+        throw `The number of stages (${numStages}) is not an integer!`;
+    }
 
     let y = yInitial.slice();
 
