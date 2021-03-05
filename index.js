@@ -4,45 +4,6 @@ export {rungeKuttaStep, rungeKutta, rungeKuttaTypes};
 // TODO: Add implicit methods.
 // TODO: Add adaptive methods.
 
-const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, rungeKuttaType) => {
-
-    const numVars = dy.length
-    const h = tFinal - tInitial;
-    const numStages = rungeKuttaType.numStages;
-    const a = rungeKuttaType.a;
-    const b = rungeKuttaType.b;
-    const c = rungeKuttaType.c;
-
-    let k = new Array(numStages);
-    for (let s = 0; s < numStages; s++) {
-        k[s] = new Array(numVars);
-    }
-
-    for (let s = 0; s < numStages; s++) {
-        let t = tInitial + c[s] * h;
-        let y = new Array(numVars);
-        for (let varIndex = 0; varIndex < numVars; varIndex++) {
-            y[varIndex] = yInitial[varIndex];
-            for (let s2 = 0; s2 < s; s2++) {
-                y[varIndex] += h * a[s][s2] * k[s - 1][varIndex];
-            }
-        }
-        for (let varIndex = 0; varIndex < numVars; varIndex++) {
-            k[s][varIndex] = dy[varIndex](t, y);
-        }
-    }
-
-    let y = new Array(numVars);
-    for (let varIndex = 0; varIndex < numVars; varIndex++) {
-        y[varIndex] = yInitial[varIndex];
-        for (let s = 0; s < numStages; s++) {
-            y[varIndex] += h * b[s] * k[s][varIndex];
-        }
-    }
-
-    return y;
-};
-
 const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType) => {
     
     if (dy.length !== yInitial.length) {
@@ -118,3 +79,43 @@ const rungeKuttaTypes = {
         c: [0, 1/2, 1/2, 1]
     }
 };
+
+const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, rungeKuttaType) => {
+
+    const numVars = dy.length
+    const h = tFinal - tInitial;
+    const numStages = rungeKuttaType.numStages;
+    const a = rungeKuttaType.a;
+    const b = rungeKuttaType.b;
+    const c = rungeKuttaType.c;
+
+    let k = new Array(numStages);
+    for (let s = 0; s < numStages; s++) {
+        k[s] = new Array(numVars);
+    }
+
+    for (let s = 0; s < numStages; s++) {
+        let t = tInitial + c[s] * h;
+        let y = new Array(numVars);
+        for (let varIndex = 0; varIndex < numVars; varIndex++) {
+            y[varIndex] = yInitial[varIndex];
+            for (let s2 = 0; s2 < s; s2++) {
+                y[varIndex] += h * a[s][s2] * k[s - 1][varIndex];
+            }
+        }
+        for (let varIndex = 0; varIndex < numVars; varIndex++) {
+            k[s][varIndex] = dy[varIndex](t, y);
+        }
+    }
+
+    let y = new Array(numVars);
+    for (let varIndex = 0; varIndex < numVars; varIndex++) {
+        y[varIndex] = yInitial[varIndex];
+        for (let s = 0; s < numStages; s++) {
+            y[varIndex] += h * b[s] * k[s][varIndex];
+        }
+    }
+
+    return y;
+};
+

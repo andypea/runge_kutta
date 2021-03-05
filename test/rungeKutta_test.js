@@ -2,8 +2,8 @@ import should from 'should';
 import {rungeKutta, rungeKuttaTypes} from '../index.js';
 
 describe('rungeKutta()', function() {
-    describe('rungeKuttaType: euler', function() {
-        it('should give the correct answer for a simple example', function() {
+    describe('rungeKuttaType.euler', function() {
+        it('should give the correct answer for a simple example using Euler\'s method.', function() {
             // From: <https://en.wikipedia.org/wiki/eulerRungeKutta_method>
             const dy = (t, y) => {
                 return y[0];
@@ -17,7 +17,7 @@ describe('rungeKutta()', function() {
             rungeKutta([dy], [1], 0, 4, 80 * 4, rungeKuttaTypes.euler)[0].should.be.approximately(53.26, 0.01);
         });
 
-        it('should give the correct answer for a simple 2nd-order example', function() {
+        it('should give the correct answer for a simple 2nd-order ODE using Euler\'s method.', function() {
             // From: http://sites.science.oregonstate.edu/math/home/programs/undergrad/CalculusQuestStudyGuides/ode/second/so_num/so_num.html
             const dy = [
                 (t, y) => {
@@ -51,7 +51,7 @@ describe('rungeKutta()', function() {
             //eulerRungeKutta(dy, y0, t0, 1 / 32, 32)[0].should.be.approximately(4.074, 0.001);
         });
 
-        it('should give the correct answer for a another simple 2nd-order example', function() {
+        it('should give the correct answer for a another simple 2nd-order ODE using Euler\'s method.', function() {
             // From: http://www.math.umd.edu/~petersd/460/html/eulerRungeKutta_demo2.html
             const dy = [
                 (t, y) => {
@@ -77,8 +77,8 @@ describe('rungeKutta()', function() {
         });
     });
     
-    describe('rungeKuttaType: ralston', function() {
-        it('should give the correct answer for a simple example using Ralston\'s method', function() {
+    describe('rungeKuttaType.ralston', function() {
+        it('should give the correct answer for a simple example using Ralston\'s method.', function() {
             // From: <https://en.wikipedia.org/wiki/eulerRungeKutta_method>
             const dy = [(t, y) => {
                 return Math.tan(y) + 1;
@@ -99,8 +99,8 @@ describe('rungeKutta()', function() {
         });
     });
   
-    describe('rungeKuttaType: rk4', function() {
-        it('should give the correct answer for a 2nd order ODE example using the rk4 method', function() {
+    describe('rungeKuttaType.rk4', function() {
+        it('should give the correct answer for a 2nd-order ODE example using the standard RK4 method.', function() {
             //From <http://lampx.tugraz.at/~hadley/num/ch8/rk4ode2.php>
             const dy = [
                 (t, y) => {
