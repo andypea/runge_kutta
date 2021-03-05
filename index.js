@@ -1,55 +1,17 @@
-export {euler, rungeKuttaStep, eulerRungeKutta, rungeKutta, ralstonRungeKutta};
+export {rungeKuttaStep, rungeKutta, rungeKuttaTypes};
 
 // TODO: Rename methods to explicit...
 // TODO: Add implicit methods.
 // TODO: Add adaptive methods.
 
-/**
- * Integrates a system of 1st-order ordinary differential equations (ODE) using
- * Euler's method.
- *
- * @param {Array} dy - An array of functions which each calculate the derivative of a variable.
- * @param {Array} yInitial - An array of initial values for the variables.
- * @param {number} tInitial - The initial value of t.
- * @param {number} tFinal - The final value of t.
- * @param {number} numSteps - The number of steps to use for the numerical
- * integration.
- *
- * @returns {Array} The estimated values of the variables at time tFinal.
- */
-const euler = (dy, yInitial, tInitial, tFinal, numSteps) => {
-
-    if (dy.length !== yInitial.length) {
-        throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
-    }
-
-    if (! Number.isInteger(numSteps)) {
-        throw `The number of steps (${numSteps}) is not an integer!`;
-    }
-
-    const numVars = dy.length;
-    const deltaT = (tFinal - tInitial) / numSteps;
-    
-    let t = tInitial;
-    let y = yInitial.slice();
-    let yNext = new Array(numVars);
-
-    for (let step = 0; step < numSteps; step++ ) {
-        for (let varIndex = 0; varIndex < numVars; varIndex++) {
-            yNext[varIndex] = y[varIndex] + deltaT * dy[varIndex](t, y);
-        }
-
-        t = t + deltaT;
-        y = yNext.slice();
-    }
-
-    return y;
-};
-
-const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, numStages, a, b, c) => {
+const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, rungeKuttaType) => {
 
     const numVars = dy.length
     const h = tFinal - tInitial;
+    const numStages = rungeKuttaType.numStages;
+    const a = rungeKuttaType.a;
+    const b = rungeKuttaType.b;
+    const c = rungeKuttaType.c;
 
     let k = new Array(numStages);
     for (let s = 0; s < numStages; s++) {
@@ -81,71 +43,41 @@ const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, numStages, a, b, c) => {
     return y;
 };
 
-const eulerRungeKutta = (dy, yInitial, tInitial, tFinal, numSteps) => {
-
-    // The Runge-Kutta co-efficients for Euler's method.
-    const numStages = 1;
-
-    const a = [[]];
-
-    const b = [1];
-        
-    const c = [0];
-
-    return rungeKutta(dy, yInitial, tInitial, tFinal, numSteps, numStages, a, b, c);
-}
-
-const ralstonRungeKutta = (dy, yInitial, tInitial, tFinal, numSteps) => {
-
-    // The Runge-Kutta co-efficients for Euler's method.
-    const numStages = 2;
-
-    const a = [[],
-               [2/3]];
-
-    const b = [1/4, 3/4];
-        
-    const c = [0, 2/3];
-
-    return rungeKutta(dy, yInitial, tInitial, tFinal, numSteps, numStages, a, b, c);
-}
-
-
-
-const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, numStages, a, b, c) => {
+const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType) => {
     
     if (dy.length !== yInitial.length) {
         throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
     }
-    
-    if (a.length !== numStages) {
-        throw `The number of a coefficient rows (${a.length}) is not equal to the number of stages minus 1 (${numStages})!`;
+   
+    // TODO: Put rungeKuttaType validation into a seperate function.
+    if (rungeKuttaType.a.length !== rungeKuttaType.numStages) {
+        throw `The number of a coefficient rows (${rungeKuttaType.a.length}) is not equal to the number of stages minus 1 (${rungeKuttaType.numStages})!`;
     }
    
-    for (let i = 0; i < numStages; i++) {
-        if (a[i].length !== i) {
-            throw `The number of a coefficient columns in row ${i} (${a[i].length}) is not equal to the correct value (${i + 1})!`;
+    for (let i = 0; i < rungeKuttaType.numStages; i++) {
+        if (rungeKuttaType.a[i].length !== i) {
+            throw `The number of a coefficient columns in row ${i} (${rungeKuttaType.a[i].length}) is not equal to the correct value (${i + 1})!`;
         }
     }
 
-    if (b.length !== numStages) {
-        throw `The number of b coefficients (${b.length}) is not equal to the number of stages (${numStages})!`;  
+    if (rungeKuttaType.b.length !== rungeKuttaType.numStages) {
+        throw `The number of b coefficients (${rungeKuttaType.b.length}) is not equal to the number of stages (${rungeKuttaType.numStages})!`;  
     }
     
-    if (c.length !== numStages) {
-        throw `The number of c coefficients (${c.length}) is not equal to the number of stages (${numStages})!`;
+    if (rungeKuttaType.c.length !== rungeKuttaType.numStages) {
+        throw `The number of c coefficients (${rungeKuttaType.c.length}) is not equal to the number of stages (${rungeKuttaType.numStages})!`;
     }
 
-    if (c[0] !== 0) {
-        throw `The initial c coefficient (${c[0]}) is not equal to 0!`;
+    if (rungeKuttaType.c[0] !== 0) {
+        throw `The initial c coefficient (${rungeKuttaType.c[0]}) is not equal to 0!`;
     }
 
-    if (! Number.isInteger(numStages)) {
-        throw `The number of stages (${numStages}) is not an integer!`;
+    if (! Number.isInteger(rungeKuttaType.numStages)) {
+        throw `The number of stages (${rungeKuttaType.numStages}) is not an integer!`;
     }
     
     if (! Number.isInteger(numSteps)) {
-        throw `The number of stages (${numStages}) is not an integer!`;
+        throw `The number of stages (${numSteps}) is not an integer!`;
     }
 
     let y = yInitial.slice();
@@ -155,9 +87,34 @@ const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, numStages, a, b, c
     let t = tInitial;
 
     for (let step = 0; step < numSteps; step++) {
-        y = rungeKuttaStep(dy, y, t, t + stepSize, numStages, a, b, c);
+        y = rungeKuttaStep(dy, y, t, t + stepSize, rungeKuttaType);
         t += stepSize;
     }
 
     return y;
 }
+
+const rungeKuttaTypes = {
+    euler: {
+        numStages: 1,
+        a: [[]],
+        b: [1],
+        c: [0]
+    },
+    ralston: {
+        numStages: 2,
+        a: [[],
+            [2/3]],
+        b: [1/4, 3/4],
+        c: [0, 2/3]
+    },
+    rk4: {
+        numStages: 4,
+        a: [[],
+            [1/2],
+            [0, 1/2],
+            [0, 0, 1]],
+        b: [1/6, 2/6, 2/6, 1/6],
+        c: [0, 1/2, 1/2, 1]
+    }
+};

@@ -1,5 +1,5 @@
 import should from 'should';
-import {rungeKuttaStep} from '../index.js';
+import {rungeKuttaStep, rungeKuttaTypes} from '../index.js';
 
 describe('rungeKuttaStep()', function() {
     it('should give the correct answer for a simple example', function() {
@@ -14,15 +14,9 @@ describe('rungeKuttaStep()', function() {
 
         const tFinal = 1;
 
-        const numStages = 1;
+        const rungeKuttaType = rungeKuttaTypes.euler;
 
-        const a = [[]];
-
-        const b = [1];
-        
-        const c = [0];
-
-        rungeKuttaStep(dy, yInitial, tInitial, tFinal, numStages, a, b, c)[0].should.be.approximately(2, 0.01);
+        rungeKuttaStep(dy, yInitial, tInitial, tFinal, rungeKuttaType)[0].should.be.approximately(2, 0.01);
     });
 });
 
