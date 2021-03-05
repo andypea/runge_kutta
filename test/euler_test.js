@@ -9,15 +9,13 @@ describe('euler()', function() {
         };
 
         euler([dy], [1], 0, 4, 4)[0].should.be.approximately(16, 0.01);
-        euler([dy], [1], 0, 4, 4 * 4).should.be.approximately(35.53, 0.01);
-        euler([dy], [1], 0, 4, 10 * 4).should.be.approximately(45.26, 0.01);
-        euler([dy], [1], 0, 4, 20 * 4).should.be.approximately(49.56, 0.01);
-        euler([dy], [1], 0, 4, 40 * 4).should.be.approximately(51.98, 0.01);
-        euler([dy], [1], 0, 4, 80 * 4).should.be.approximately(53.26, 0.01);
+        euler([dy], [1], 0, 4, 4 * 4)[0].should.be.approximately(35.53, 0.01);
+        euler([dy], [1], 0, 4, 10 * 4)[0].should.be.approximately(45.26, 0.01);
+        euler([dy], [1], 0, 4, 20 * 4)[0].should.be.approximately(49.56, 0.01);
+        euler([dy], [1], 0, 4, 40 * 4)[0].should.be.approximately(51.98, 0.01);
+        euler([dy], [1], 0, 4, 80 * 4)[0].should.be.approximately(53.26, 0.01);
     });
-});
-
-describe('euler()', function() {
+    
     it('should give the correct answer for a simple 2nd-order example', function() {
         // From: http://sites.science.oregonstate.edu/math/home/programs/undergrad/CalculusQuestStudyGuides/ode/second/so_num/so_num.html
         const dy = [
@@ -51,9 +49,7 @@ describe('euler()', function() {
         //euler(dy, y0, t0, 1 / 16, 16)[0].should.be.approximately(4.024, 0.001);
         //euler(dy, y0, t0, 1 / 32, 32)[0].should.be.approximately(4.074, 0.001);
     });
-});
-
-describe('euler()', function() {
+    
     it('should give the correct answer for a another simple 2nd-order example', function() {
         // From: http://www.math.umd.edu/~petersd/460/html/euler_demo2.html
         const dy = [

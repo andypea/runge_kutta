@@ -1,4 +1,8 @@
-export {euler};
+export {euler, rungeKuttaStep, eulerRungeKutta, rungeKutta, ralstonRungeKutta};
+
+// TODO: Rename methods to explicit...
+// TODO: Add implicit methods.
+// TODO: Add adaptive methods.
 
 /**
  * Integrates a system of 1st-order ordinary differential equations (ODE) using
@@ -48,8 +52,8 @@ const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, numStages, a, b, c) => {
         throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
     }
     
-    if (a.length !== (s - 1)) {
-        throw `The number of a coefficient rows (${a.length}) is not equal to the number of stages minus 1 (${numStages - 1})!`;
+    if (a.length !== numStages) {
+        throw `The number of a coefficient rows (${a.length}) is not equal to the number of stages minus 1 (${numStages})!`;
     }
    
     for (let i = 0; i < numStages; i++) {
@@ -58,11 +62,11 @@ const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, numStages, a, b, c) => {
         }
     }
 
-    if (b.length !== s) {
+    if (b.length !== numStages) {
         throw `The number of b coefficients (${b.length}) is not equal to the number of stages (${numStages})!`;  
     }
     
-    if (c.length !== s) {
+    if (c.length !== numStages) {
         throw `The number of c coefficients (${c.length}) is not equal to the number of stages (${numStages})!`;
     }
 
@@ -107,3 +111,49 @@ const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, numStages, a, b, c) => {
     return y;
 };
 
+const eulerRungeKutta = (dy, yInitial, tInitial, tFinal, numSteps) => {
+
+    // The Runge-Kutta co-efficients for Euler's method.
+    const numStages = 1;
+
+    const a = [[]];
+
+    const b = [1];
+        
+    const c = [0];
+
+    return rungeKutta(dy, yInitial, tInitial, tFinal, numSteps, numStages, a, b, c);
+}
+
+const ralstonRungeKutta = (dy, yInitial, tInitial, tFinal, numSteps) => {
+
+    // The Runge-Kutta co-efficients for Euler's method.
+    const numStages = 2;
+
+    const a = [[],
+               [2/3]];
+
+    const b = [1/4, 3/4];
+        
+    const c = [0, 2/3];
+
+    return rungeKutta(dy, yInitial, tInitial, tFinal, numSteps, numStages, a, b, c);
+}
+
+
+
+const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, numStages, a, b, c) => {
+
+    let y = yInitial.slice();
+
+    const stepSize = (tFinal - tInitial) / numSteps;
+
+    let t = tInitial;
+
+    for (let step = 0; step < numSteps; step++) {
+        y = rungeKuttaStep(dy, y, t, t + stepSize, numStages, a, b, c);
+        t += stepSize;
+    }
+
+    return y;
+}
