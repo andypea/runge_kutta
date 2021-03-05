@@ -6,6 +6,7 @@ export {rungeKuttaStep, rungeKutta, rungeKuttaTypes};
 
 const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType) => {
     
+    // TODO: Use typed expressions.
     if (dy.length !== yInitial.length) {
         throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
     }
@@ -82,7 +83,7 @@ const rungeKuttaTypes = {
 
 const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, rungeKuttaType) => {
 
-    const numVars = dy.length
+    const numVars = dy.length;
     const h = tFinal - tInitial;
     const numStages = rungeKuttaType.numStages;
     const a = rungeKuttaType.a;
