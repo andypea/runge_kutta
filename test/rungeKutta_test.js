@@ -114,52 +114,62 @@ describe('rungeKutta()', function() {
             const yInitial = [0, 1];
 
             const tInitial = 0;
-
+            
+            const numSteps = 19;
+            
             const stepSize = 0.01;
 
+            const tFinal = tInitial + numSteps * stepSize;
 
             const rungeKuttaType = rungeKuttaTypes.rk4;
 
-            rungeKutta(dy, yInitial, tInitial, tInitial + 0 * stepSize, 0, rungeKuttaType).y[0].should.be.approximately(0.000, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 0 * stepSize, 0, rungeKuttaType).y[1].should.be.approximately(1.000, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 1 * stepSize, 1, rungeKuttaType).y[0].should.be.approximately(0.009, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 1 * stepSize, 1, rungeKuttaType).y[1].should.be.approximately(0.990, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 2 * stepSize, 2, rungeKuttaType).y[0].should.be.approximately(0.019, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 2 * stepSize, 2, rungeKuttaType).y[1].should.be.approximately(0.980, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 3 * stepSize, 3, rungeKuttaType).y[0].should.be.approximately(0.029, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 3 * stepSize, 3, rungeKuttaType).y[1].should.be.approximately(0.970, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 4 * stepSize, 4, rungeKuttaType).y[0].should.be.approximately(0.039, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 4 * stepSize, 4, rungeKuttaType).y[1].should.be.approximately(0.960, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 5 * stepSize, 5, rungeKuttaType).y[0].should.be.approximately(0.048, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 5 * stepSize, 5, rungeKuttaType).y[1].should.be.approximately(0.951, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 6 * stepSize, 6, rungeKuttaType).y[0].should.be.approximately(0.058, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 6 * stepSize, 6, rungeKuttaType).y[1].should.be.approximately(0.941, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 7 * stepSize, 7, rungeKuttaType).y[0].should.be.approximately(0.067, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 7 * stepSize, 7, rungeKuttaType).y[1].should.be.approximately(0.932, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 8 * stepSize, 8, rungeKuttaType).y[0].should.be.approximately(0.076, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 8 * stepSize, 8, rungeKuttaType).y[1].should.be.approximately(0.923, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 9 * stepSize, 9, rungeKuttaType).y[0].should.be.approximately(0.086, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 9 * stepSize, 9, rungeKuttaType).y[1].should.be.approximately(0.914, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 10 * stepSize, 10, rungeKuttaType).y[0].should.be.approximately(0.095, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 10 * stepSize, 10, rungeKuttaType).y[1].should.be.approximately(0.904, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 11 * stepSize, 11, rungeKuttaType).y[0].should.be.approximately(0.104, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 11 * stepSize, 11, rungeKuttaType).y[1].should.be.approximately(0.896, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 12 * stepSize, 12, rungeKuttaType).y[0].should.be.approximately(0.113, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 12 * stepSize, 12, rungeKuttaType).y[1].should.be.approximately(0.887, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 13 * stepSize, 13, rungeKuttaType).y[0].should.be.approximately(0.121, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 13 * stepSize, 13, rungeKuttaType).y[1].should.be.approximately(0.878, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 14 * stepSize, 14, rungeKuttaType).y[0].should.be.approximately(0.130, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 14 * stepSize, 14, rungeKuttaType).y[1].should.be.approximately(0.869, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 15 * stepSize, 15, rungeKuttaType).y[0].should.be.approximately(0.139, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 15 * stepSize, 15, rungeKuttaType).y[1].should.be.approximately(0.861, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 16 * stepSize, 16, rungeKuttaType).y[0].should.be.approximately(0.147, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 16 * stepSize, 16, rungeKuttaType).y[1].should.be.approximately(0.852, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 17 * stepSize, 17, rungeKuttaType).y[0].should.be.approximately(0.156, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 17 * stepSize, 17, rungeKuttaType).y[1].should.be.approximately(0.844, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 18 * stepSize, 18, rungeKuttaType).y[0].should.be.approximately(0.164, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 18 * stepSize, 18, rungeKuttaType).y[1].should.be.approximately(0.836, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 19 * stepSize, 19, rungeKuttaType).y[0].should.be.approximately(0.173, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 19 * stepSize, 19, rungeKuttaType).y[1].should.be.approximately(0.827, 0.001);
+            const result = rungeKutta(dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType);
+            
+            result.y[0].should.be.approximately(0.173, 0.001);
+            result.y[1].should.be.approximately(0.827, 0.001);
+
+            result.t.should.be.approximately(tFinal, 1e-7);
+
+            result.steps[0].y[0].should.be.approximately(0.000, 0.001);
+            result.steps[0].y[1].should.be.approximately(1.000, 0.001);
+            result.steps[1].y[0].should.be.approximately(0.009, 0.001);
+            result.steps[1].y[1].should.be.approximately(0.990, 0.001);
+            result.steps[2].y[0].should.be.approximately(0.019, 0.001);
+            result.steps[2].y[1].should.be.approximately(0.980, 0.001);
+            result.steps[3].y[0].should.be.approximately(0.029, 0.001);
+            result.steps[3].y[1].should.be.approximately(0.970, 0.001);
+            result.steps[4].y[0].should.be.approximately(0.039, 0.001);
+            result.steps[4].y[1].should.be.approximately(0.960, 0.001);
+            result.steps[5].y[0].should.be.approximately(0.048, 0.001);
+            result.steps[5].y[1].should.be.approximately(0.951, 0.001);
+            result.steps[6].y[0].should.be.approximately(0.058, 0.001);
+            result.steps[6].y[1].should.be.approximately(0.941, 0.001);
+            result.steps[7].y[0].should.be.approximately(0.067, 0.001);
+            result.steps[7].y[1].should.be.approximately(0.932, 0.001);
+            result.steps[8].y[0].should.be.approximately(0.076, 0.001);
+            result.steps[8].y[1].should.be.approximately(0.923, 0.001);
+            result.steps[9].y[0].should.be.approximately(0.086, 0.001);
+            result.steps[9].y[1].should.be.approximately(0.914, 0.001);
+            result.steps[10].y[0].should.be.approximately(0.095, 0.001);
+            result.steps[10].y[1].should.be.approximately(0.904, 0.001);
+            result.steps[11].y[0].should.be.approximately(0.104, 0.001);
+            result.steps[11].y[1].should.be.approximately(0.896, 0.001);
+            result.steps[12].y[0].should.be.approximately(0.113, 0.001);
+            result.steps[12].y[1].should.be.approximately(0.887, 0.001);
+            result.steps[13].y[0].should.be.approximately(0.121, 0.001);
+            result.steps[13].y[1].should.be.approximately(0.878, 0.001);
+            result.steps[14].y[0].should.be.approximately(0.130, 0.001);
+            result.steps[14].y[1].should.be.approximately(0.869, 0.001);
+            result.steps[15].y[0].should.be.approximately(0.139, 0.001);
+            result.steps[15].y[1].should.be.approximately(0.861, 0.001);
+            result.steps[16].y[0].should.be.approximately(0.147, 0.001);
+            result.steps[16].y[1].should.be.approximately(0.852, 0.001);
+            result.steps[17].y[0].should.be.approximately(0.156, 0.001);
+            result.steps[17].y[1].should.be.approximately(0.844, 0.001);
+            result.steps[18].y[0].should.be.approximately(0.164, 0.001);
+            result.steps[18].y[1].should.be.approximately(0.836, 0.001);
+            result.steps[19].y[0].should.be.approximately(0.173, 0.001);
+            result.steps[19].y[1].should.be.approximately(0.827, 0.001);
         });
     });
 });

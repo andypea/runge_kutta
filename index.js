@@ -58,11 +58,13 @@ const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType) =>
         t: step_results[numSteps].t,
         y: step_results[numSteps].y, 
         steps: step_results, 
-        yInitial: yInitial,
-        tInitial: tInitial,
-        tFinal: tFinal,
-        numSteps: numSteps,
-        rungeKuttaType: rungeKuttaType
+        settings: {
+            yInitial: yInitial,
+            tInitial: tInitial,
+            tFinal: tFinal,
+            numSteps: numSteps,
+            rungeKuttaType: rungeKuttaType
+        }
     };
 }
 
