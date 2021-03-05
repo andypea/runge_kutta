@@ -16,11 +16,11 @@ export {euler};
 const euler = (dy, yInitial, tInitial, tFinal, numSteps) => {
 
     if (dy.length !== yInitial.length) {
-        throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`
+        throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
     }
 
     if (! Number.isInteger(numSteps)) {
-        throw `The number of steps (${numSteps}) is not an integer!`
+        throw `The number of steps (${numSteps}) is not an integer!`;
     }
 
     const numVars = dy.length;
@@ -37,6 +37,71 @@ const euler = (dy, yInitial, tInitial, tFinal, numSteps) => {
 
         t = t + deltaT;
         y = yNext.slice();
+    }
+
+    return y;
+};
+
+const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, numStages, a, b, c) => {
+
+    if (dy.length !== yInitial.length) {
+        throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
+    }
+    
+    if (a.length !== (s - 1)) {
+        throw `The number of a coefficient rows (${a.length}) is not equal to the number of stages minus 1 (${numStages - 1})!`;
+    }
+   
+    for (let i = 0; i < numStages; i++) {
+        if (a[i].length !== i) {
+            throw `The number of a coefficient columns in row ${i} (${a[i].length}) is not equal to the correct value (${i + 1})!`;
+        }
+    }
+
+    if (b.length !== s) {
+        throw `The number of b coefficients (${b.length}) is not equal to the number of stages (${numStages})!`;  
+    }
+    
+    if (c.length !== s) {
+        throw `The number of c coefficients (${c.length}) is not equal to the number of stages (${numStages})!`;
+    }
+
+    if (c[0] !== 0) {
+        throw `The initial c coefficient (${c[0]}) is not equal to 0!`;
+    }
+
+    if (! Number.isInteger(numStages)) {
+        throw `The number of stages (${numStages}) is not an integer!`;
+    }
+    
+    const numVars = dy.length
+    const h = tFinal - tInitial;
+
+    let k = new Array(numStages);
+    for (let s = 0; s < numStages; s++) {
+        k[s] = new Array(numVars);
+    }
+
+    for (let s = 0; s < numStages; s++) {
+        let t = tInitial + c[s] * h;
+        let y = new Array(numVars);
+        for (let varIndex = 0; varIndex < numVars; varIndex++) {
+            y[varIndex] = yInitial[varIndex];
+            for (let s2 = 0; s2 < s; s2++) {
+                y[varIndex] += h * a[s][s2] * k[s - 1][varIndex];
+            }
+        }
+        for (let varIndex = 0; varIndex < numVars; varIndex++) {
+            k[s][varIndex] = dy[varIndex](t, y);
+        }
+    }
+
+    let y = new Array(numVars);
+    for (let varIndex = 0; varIndex < numVars; varIndex++) {
+        y[varIndex] = yInitial[varIndex];
+        for (let s = 0; s < numStages; s++) {
+            y[varIndex] += h * b[s] * k[s][varIndex];
+        }
     }
 
     return y;
