@@ -1,0 +1,7 @@
+{
+  "name": "ode_solver",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Andrew Jon Punnett <andrew.punnett@gmail.com>",
+  "license": "MIT"
+}
