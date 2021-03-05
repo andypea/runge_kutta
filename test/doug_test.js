@@ -1,9 +1,9 @@
-import assert from 'assert';
+import should from 'should';
 import {doug} from '../index.js';
 
 describe('doug()', function() {
     it('should return 42', function() {
-        assert.equal(doug(), 42);
+        doug().should.be.equal(42);
     });
 });
 
