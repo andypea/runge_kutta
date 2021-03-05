@@ -1,4 +1,4 @@
-import assert from 'assert';
+import should from 'should';
 import {euler} from '../index.js';
 
 describe('euler()', function() {

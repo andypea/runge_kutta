@@ -1,13 +1,4 @@
-export {doug, euler};
-
-/**
- * Gives the answer
- *
- * @return The answer
- */
-const doug = () => {
-    return 42;
-};
+export {euler};
 
 /**
  * Integrates a system of 1st-order ordinary differential equations (ODE) using
