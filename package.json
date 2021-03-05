@@ -6,9 +6,11 @@
   "author": "Andrew Jon Punnett <andrew.punnett@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "jsdoc": "^3.6.6",
     "mocha": "^8.3.0"
   },
   "scripts": {
-      "test": "mocha"
+    "test": "mocha",
+    "doc": "jsdoc index.js -d jsdoc_output"
   }
 }
