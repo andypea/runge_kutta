@@ -42,18 +42,28 @@ const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType) =>
         throw `The number of stages (${numSteps}) is not an integer!`;
     }
 
-    let y = yInitial.slice();
 
     const stepSize = (tFinal - tInitial) / numSteps;
+   
+    const step_results = new Array(numSteps + 1);
+    step_results[0] = {step: 0, t: tInitial, y: yInitial.slice()}
 
-    let t = tInitial;
-
-    for (let step = 0; step < numSteps; step++) {
-        y = rungeKuttaStep(dy, y, t, t + stepSize, rungeKuttaType);
-        t += stepSize;
+    for (let step = 1; step <= numSteps; step++) {
+        const tNew = step_results[step - 1].t + stepSize;
+        const yNew = rungeKuttaStep(dy, step_results[step - 1].y, step_results[step - 1].t, tNew, rungeKuttaType);
+        step_results[step] = {step: step, t: tNew, y: yNew};
     }
 
-    return y;
+    return {
+        t: step_results[numSteps].t,
+        y: step_results[numSteps].y, 
+        steps: step_results, 
+        yInitial: yInitial,
+        tInitial: tInitial,
+        tFinal: tFinal,
+        numSteps: numSteps,
+        rungeKuttaType: rungeKuttaType
+    };
 }
 
 const rungeKuttaTypes = {
