@@ -5,7 +5,7 @@ export {rungeKuttaStep, rungeKutta, rungeKuttaTypes};
 // TODO: Add adaptive methods.
 
 const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType) => {
-    
+   
     // TODO: Use typed expressions.
     if (dy.length !== yInitial.length) {
         throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
