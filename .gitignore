@@ -1,5 +1,5 @@
 node_modules
 yarn.lock
-jsdoc_output
 yarn-error.log
+api_documentation
 

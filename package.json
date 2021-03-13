@@ -12,6 +12,6 @@
   },
   "scripts": {
     "test": "mocha",
-    "doc": "jsdoc index.js -d jsdoc_output"
+    "doc": "jsdoc index.js -d api_documentation"
   }
 }
