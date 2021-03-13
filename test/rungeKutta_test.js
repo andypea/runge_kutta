@@ -191,6 +191,37 @@ describe('rungeKutta()', function() {
             result.steps[19].y[0].should.be.approximately(0.173, 0.001);
             result.steps[19].y[1].should.be.approximately(0.827, 0.001);
         });
+        
+        it('should give the correct answer for a 1st-order ODE using the standard RK4 method.', function() {
+            // From:
+            // <https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf>
+            const dy = [
+                (t, y) => {
+                    return y - Math.pow(t, 2) + 1;
+                }
+            ];
+
+            const yInitial = [0.5];
+            const tInitial = 0;
+            const tFinal = 2;
+            const rungeKuttaType = rungeKuttaTypes.rk4;
+
+            rungeKutta(dy, yInitial, tInitial, tFinal, 4, rungeKuttaType).
+                y[0].
+                should.be.approximately(5.301605229265987, 1e-14);
+            
+            rungeKutta(dy, yInitial, tInitial, tFinal, 10, rungeKuttaType).
+                y[0].
+                should.be.approximately(5.305363000692655, 1e-14);
+            
+            rungeKutta(dy, yInitial, tInitial, tFinal, 40, rungeKuttaType).
+                y[0].
+                should.be.approximately(5.305471508400809, 1e-14);
+            
+            rungeKutta(dy, yInitial, tInitial, tFinal, 40, rungeKuttaType).
+                t. 
+                should.be.approximately(2, 1e-14);
+        });
     });
 });
 
