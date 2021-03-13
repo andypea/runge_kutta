@@ -5,6 +5,12 @@ export {rungeKuttaStep, rungeKutta, rungeKuttaTypes, rungeKuttaAdaptive, rungeKu
 // TODO: A nice looking source for implicit methods is <https://gmd.copernicus.org/articles/11/1497/2018/gmd-11-1497-2018.pdf>
 // TODO: Turn functions into generators, so users can observe and stop them in real-time.
 
+/**
+ * Validate a rungeKuttaType object
+ *
+ * @param {object} rungeKuttaType - The object to be validated.
+ * @param {boolean} adaptive - Whether the object is an adaptive version.
+ */
 const validateRungeKuttaType = (rungeKuttaType, adaptive) => {
     // TODO: Put rungeKuttaType validation into a seperate function.
     if (rungeKuttaType.a.length !== rungeKuttaType.numStages) {
