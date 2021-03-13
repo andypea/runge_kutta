@@ -1,6 +1,10 @@
 import should from 'should';
 import {rungeKutta, rungeKuttaTypes} from '../index.js';
 
+// TODO: Allow constants to be passed through to dy functions
+// TODO: Make dy functions return a array of derivatives (instead of being an
+// array of functions)?
+
 describe('rungeKutta()', function() {
     describe('rungeKuttaType.euler', function() {
         it('should give the correct answer for a simple example using Euler\'s method.', function() {
