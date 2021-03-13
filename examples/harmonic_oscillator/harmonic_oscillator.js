@@ -1,4 +1,4 @@
-import {rungeKuttaAdaptive, rungeKuttaAdaptiveTypes} from '../index.js'
+import {rungeKuttaAdaptive, rungeKuttaAdaptiveTypes} from '../../index.js'
 
 let dy = [
     (t, y) => {

@@ -2,5 +2,6 @@ node_modules
 yarn.lock
 yarn-error.log
 api_documentation
-examples/harmonic_oscillator.csv
+examples/harmonic_oscillator/harmonic_oscillator.csv
+examples/orbits/orbits.csv
 
