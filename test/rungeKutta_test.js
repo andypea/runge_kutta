@@ -13,12 +13,12 @@ describe('rungeKutta()', function() {
                 return [y[0]];
             };
 
-            rungeKutta(dy, [1], 0, 4, 4, rungeKuttaTypes.euler).y[0].should.be.approximately(16, 0.01);
-            rungeKutta(dy, [1], 0, 4, 4 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(35.53, 0.01);
-            rungeKutta(dy, [1], 0, 4, 10 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(45.26, 0.01);
-            rungeKutta(dy, [1], 0, 4, 20 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(49.56, 0.01);
-            rungeKutta(dy, [1], 0, 4, 40 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(51.98, 0.01);
-            rungeKutta(dy, [1], 0, 4, 80 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(53.26, 0.01);
+            rungeKutta(dy, [1], 0, 4, 1, rungeKuttaTypes.euler).y[0].should.be.approximately(16, 0.01);
+            rungeKutta(dy, [1], 0, 4, 1 / 4, rungeKuttaTypes.euler).y[0].should.be.approximately(35.53, 0.01);
+            rungeKutta(dy, [1], 0, 4, 1/ 10, rungeKuttaTypes.euler).y[0].should.be.approximately(45.26, 0.01);
+            rungeKutta(dy, [1], 0, 4, 1 / 20, rungeKuttaTypes.euler).y[0].should.be.approximately(49.56, 0.01);
+            rungeKutta(dy, [1], 0, 4, 1 / 40, rungeKuttaTypes.euler).y[0].should.be.approximately(51.98, 0.01);
+            rungeKutta(dy, [1], 0, 4, 1 / 80, rungeKuttaTypes.euler).y[0].should.be.approximately(53.26, 0.01);
         });
 
         it('should give the correct answer for a simple 2nd-order ODE using Euler\'s method.', function() {
@@ -40,11 +40,11 @@ describe('rungeKutta()', function() {
             rungeKutta(dy, y0, t0, 1, 1, rungeKuttaTypes.euler).y[0].should.be.approximately(3.000, 0.001);
             rungeKutta(dy, y0, t0, 1, 1, rungeKuttaTypes.euler).y[1].should.be.approximately(0.000, 0.001);
 
-            rungeKutta(dy, y0, t0, 0.5, 1, rungeKuttaTypes.euler).y[0].should.be.approximately(2.000, 0.001);
-            rungeKutta(dy, y0, t0, 0.5, 1, rungeKuttaTypes.euler).y[1].should.be.approximately(1.000, 0.001);
+            rungeKutta(dy, y0, t0, 0.5, 0.5, rungeKuttaTypes.euler).y[0].should.be.approximately(2.000, 0.001);
+            rungeKutta(dy, y0, t0, 0.5, 0.5, rungeKuttaTypes.euler).y[1].should.be.approximately(1.000, 0.001);
 
-            rungeKutta(dy, y0, t0, 1, 2, rungeKuttaTypes.euler).y[0].should.be.approximately(2.500, 0.001);
-            rungeKutta(dy, y0, t0, 1, 2, rungeKuttaTypes.euler).y[1].should.be.approximately(0.921, 0.001);
+            rungeKutta(dy, y0, t0, 1, 0.5, rungeKuttaTypes.euler).y[0].should.be.approximately(2.500, 0.001);
+            rungeKutta(dy, y0, t0, 1, 0.5, rungeKuttaTypes.euler).y[1].should.be.approximately(0.921, 0.001);
 
             // These values are in the original page, but appear incorrect.
             //eulerRungeKutta(dy, y0, t0, 1 / 4, 4)[0].should.be.approximately(3.777, 0.001);
@@ -69,11 +69,11 @@ describe('rungeKutta()', function() {
 
             const t0 = 0;
 
-            rungeKutta(dy, y0, t0, 4, 16, rungeKuttaTypes.euler).y[0].should.be.approximately(32.5946, 0.0001);
-            rungeKutta(dy, y0, t0, 4, 32, rungeKuttaTypes.euler).y[0].should.be.approximately(15.0972, 0.0001);
-            rungeKutta(dy, y0, t0, 4, 64, rungeKuttaTypes.euler).y[0].should.be.approximately(8.0537, 0.0001);
-            rungeKutta(dy, y0, t0, 4, 128, rungeKuttaTypes.euler).y[0].should.be.approximately(5.40507, 0.0001);
-            rungeKutta(dy, y0, t0, 4, 256, rungeKuttaTypes.euler).y[0].should.be.approximately(4.31208, 0.0001);
+            rungeKutta(dy, y0, t0, 4, 4 / 16, rungeKuttaTypes.euler).y[0].should.be.approximately(32.5946, 0.0001);
+            rungeKutta(dy, y0, t0, 4, 4 / 32, rungeKuttaTypes.euler).y[0].should.be.approximately(15.0972, 0.0001);
+            rungeKutta(dy, y0, t0, 4, 4 / 64, rungeKuttaTypes.euler).y[0].should.be.approximately(8.0537, 0.0001);
+            rungeKutta(dy, y0, t0, 4, 4 / 128, rungeKuttaTypes.euler).y[0].should.be.approximately(5.40507, 0.0001);
+            rungeKutta(dy, y0, t0, 4, 4 / 256, rungeKuttaTypes.euler).y[0].should.be.approximately(4.31208, 0.0001);
         });
     });
     
@@ -92,10 +92,10 @@ describe('rungeKutta()', function() {
 
             const numSteps = 4;
 
-            rungeKutta(dy, yInitial, tInitial, tInitial + 1 * 0.025, 1, rungeKuttaTypes.ralston).y[0].should.be.approximately(1.066, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 2 * 0.025, 2, rungeKuttaTypes.ralston).y[0].should.be.approximately(1.141, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 3 * 0.025, 3, rungeKuttaTypes.ralston).y[0].should.be.approximately(1.227, 0.001);
-            rungeKutta(dy, yInitial, tInitial, tInitial + 4 * 0.025, 4, rungeKuttaTypes.ralston).y[0].should.be.approximately(1.335, 0.001);
+            rungeKutta(dy, yInitial, tInitial, tInitial + 1 * 0.025, 0.025, rungeKuttaTypes.ralston).y[0].should.be.approximately(1.066, 0.001);
+            rungeKutta(dy, yInitial, tInitial, tInitial + 2 * 0.025, 0.025, rungeKuttaTypes.ralston).y[0].should.be.approximately(1.141, 0.001);
+            rungeKutta(dy, yInitial, tInitial, tInitial + 3 * 0.025, 0.025, rungeKuttaTypes.ralston).y[0].should.be.approximately(1.227, 0.001);
+            rungeKutta(dy, yInitial, tInitial, tInitial + 4 * 0.025, 0.025, rungeKuttaTypes.ralston).y[0].should.be.approximately(1.335, 0.001);
         });
     });
   
@@ -113,15 +113,13 @@ describe('rungeKutta()', function() {
 
             const tInitial = 0;
             
-            const numSteps = 19;
-            
             const stepSize = 0.01;
 
-            const tFinal = tInitial + numSteps * stepSize;
+            const tFinal = tInitial + 19 * stepSize;
 
             const rungeKuttaType = rungeKuttaTypes.rk4;
 
-            const result = rungeKutta(dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType);
+            const result = rungeKutta(dy, yInitial, tInitial, tFinal, stepSize, rungeKuttaType);
             
             result.y[0].should.be.approximately(0.173, 0.001);
             result.y[1].should.be.approximately(0.827, 0.001);
@@ -202,19 +200,19 @@ describe('rungeKutta()', function() {
             const tFinal = 2;
             const rungeKuttaType = rungeKuttaTypes.rk4;
 
-            rungeKutta(dy, yInitial, tInitial, tFinal, 4, rungeKuttaType).
+            rungeKutta(dy, yInitial, tInitial, tFinal, 2 / 4, rungeKuttaType).
                 y[0].
                 should.be.approximately(5.301605229265987, 1e-14);
             
-            rungeKutta(dy, yInitial, tInitial, tFinal, 10, rungeKuttaType).
+            rungeKutta(dy, yInitial, tInitial, tFinal, 2 / 10, rungeKuttaType).
                 y[0].
                 should.be.approximately(5.305363000692655, 1e-14);
             
-            rungeKutta(dy, yInitial, tInitial, tFinal, 40, rungeKuttaType).
+            rungeKutta(dy, yInitial, tInitial, tFinal, 2 / 40, rungeKuttaType).
                 y[0].
                 should.be.approximately(5.305471508400809, 1e-14);
             
-            rungeKutta(dy, yInitial, tInitial, tFinal, 40, rungeKuttaType).
+            rungeKutta(dy, yInitial, tInitial, tFinal, 2 / 40, rungeKuttaType).
                 t. 
                 should.be.approximately(2, 1e-14);
         });

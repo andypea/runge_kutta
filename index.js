@@ -127,7 +127,7 @@ const rungeKuttaAdaptive = (dy, yInitial, tInitial, tFinal, initialStepSize, err
     };
 }
 
-const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType) => {
+const rungeKutta = (dy, yInitial, tInitial, tFinal, stepSize, rungeKuttaType) => {
    
     // TODO: Use typed expressions.
     if (dy(tInitial, yInitial).length !== yInitial.length) {
@@ -138,33 +138,33 @@ const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType) =>
         throw `The number of stages (${rungeKuttaType.numStages}) is not an integer!`;
     }
     
-    if (! Number.isInteger(numSteps)) {
-        throw `The number of stages (${numSteps}) is not an integer!`;
-    }
-
     validateRungeKuttaType(rungeKuttaType, false);
 
-    const stepSize = (tFinal - tInitial) / numSteps;
-   
-    const step_results = new Array(numSteps + 1);
-    step_results[0] = {step: 0, t: tInitial, y: yInitial.slice()}
+    const step_results = new Array();
+    step_results.push({step: 0, t: tInitial, y: yInitial.slice()});
 
-    for (let step = 1; step <= numSteps; step++) {
-        const tNew = step_results[step - 1].t + stepSize;
-        const yNew = rungeKuttaStep(dy, step_results[step - 1].y, step_results[step - 1].t, tNew, rungeKuttaType);
-        step_results[step] = {step: step, t: tNew, y: yNew};
-    }
+    let tNew = 0;
+    let numSteps = 0;
+    do {
+        tNew = step_results[step_results.length - 1].t + stepSize;
+        if (tNew > tFinal) {
+            tNew = tFinal;
+        }
+        const yNew = rungeKuttaStep(dy, step_results[step_results.length- 1].y, step_results[step_results.length - 1].t, tNew, rungeKuttaType);
+        step_results.push({step: numSteps, t: tNew, y: yNew});
+        numSteps++;
+    } while (tNew < tFinal);
 
     return {
-        t: step_results[numSteps].t,
-        y: step_results[numSteps].y, 
+        t: step_results[step_results.length - 1].t,
+        y: step_results[step_results.length - 1].y, 
         steps: step_results, 
         settings: {
             adaptive: false,
             yInitial: yInitial,
             tInitial: tInitial,
             tFinal: tFinal,
-            numSteps: numSteps,
+            stepSize: stepSize,
             rungeKuttaType: rungeKuttaType
         }
     };
