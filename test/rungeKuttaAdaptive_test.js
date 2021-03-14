@@ -4,14 +4,9 @@ import {rungeKuttaAdaptive, rungeKuttaAdaptiveTypes} from '../index.js';
 describe('rungeKuttaAdaptive()', function() {
     describe('rungeKuttaType.rk45', function() {
         it('should give the correct answer for a 2nd-order trivial ODE using the Runge-Kutta-Fehlberg (RK45) method.', function() {
-            const dy = [
-                (t, y) => {
-                    return 0;
-                },
-                (t, y) => {
-                    return 0;
-                }
-            ];
+            const dy = (t, y) => {
+                    return [0, 0];
+                };
 
             const yInitial = [0, 1];
             const tInitial = 0;
@@ -29,11 +24,9 @@ describe('rungeKuttaAdaptive()', function() {
         
         it('should give the correct answer for a 1st-order ODE using the Runge-Kutta-Fehlberg (RK45) method.', function() {
             //<https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf>
-            const dy = [
-                (t, y) => {
-                    return y - Math.pow(t, 2) + 1;
-                }
-            ];
+            const dy = (t, y) => {
+                    return [y - Math.pow(t, 2) + 1];
+                };
 
             const yInitial = [0.5];
             const tInitial = 0;
@@ -50,11 +43,9 @@ describe('rungeKuttaAdaptive()', function() {
         
         it('should give the correct answer for a 1st-order ODE using the Runge-Kutta-Fehlberg (RK45) method.', function() {
             //<https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf>
-            const dy = [
-                (t, y) => {
-                    return y - Math.pow(t, 2) + 1;
-                }
-            ];
+            const dy = (t, y) => {
+                    return [y - Math.pow(t, 2) + 1];
+                };
 
             const yInitial = [0.5];
             const tInitial = 0;

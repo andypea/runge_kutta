@@ -1,26 +1,19 @@
 //import {rungeKutta, rungeKuttaTypes} from '../../index.js'
 import {rungeKuttaAdaptive, rungeKuttaAdaptiveTypes} from '../../index.js'
 
-let dy = [
-    (t, y) => {
-        return y[2];
-    },
-    (t, y) => {
-        return y[3]; 
-    },
+let dy = 
     (t, y) => {
         let G = 1;
         let m = 1;
         let d2 = Math.pow(y[0], 2) + Math.pow(y[1], 2);
-        return -G * m / d2 * y[0] / Math.pow(d2, 0.5);
-    },
-    (t, y) => {
-        let G = 1;
-        let m = 1;
-        let d2 = Math.pow(y[0], 2) + Math.pow(y[1], 2);
-        return -G * m / d2 * y[1] / Math.pow(d2, 0.5);
-    }
-];
+
+        return [
+            y[2],
+            y[3],
+            -G * m / d2 * y[0] / Math.pow(d2, 0.5),
+            -G * m / d2 * y[1] / Math.pow(d2, 0.5)
+        ];
+    };
 
 let yInitial = [
     1.0, // x

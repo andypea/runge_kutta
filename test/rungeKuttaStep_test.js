@@ -4,9 +4,9 @@ import {rungeKuttaStep, rungeKuttaTypes} from '../index.js';
 describe('rungeKuttaStep()', function() {
     it('should give the correct answer for a simple example', function() {
         // From: <https://en.wikipedia.org/wiki/Euler_method>
-        const dy = [(t, y) => {
-            return y[0];
-        }];
+        const dy = (t, y) => {
+            return [y[0]];
+        };
 
         const yInitial = [1]
 
@@ -23,9 +23,9 @@ describe('rungeKuttaStep()', function() {
         // <https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf>
         // TODO: Make this as single function that returns an array of values instead of being an array
         // of functions.
-        const dy = [(t, y) => {
-            return y[0] - Math.pow(t, 2) + 1;
-        }];
+        const dy = (t, y) => {
+            return [y[0] - Math.pow(t, 2) + 1];
+        };
 
         const yInitial = [0.5];
 

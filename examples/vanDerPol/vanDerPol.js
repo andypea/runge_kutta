@@ -2,14 +2,12 @@
 
 import {rungeKuttaAdaptive, rungeKuttaAdaptiveTypes} from '../../index.js'
 
-let dy = [
-    (t, y) => {
-        return y[1];
-    },
-    (t, y) => {
-        return (1 - Math.pow(y[0], 2)) * y[1] - y[0]; 
-    },
-];
+let dy = (t, y) => {
+    return [
+        y[1],
+        (1 - Math.pow(y[0], 2)) * y[1] - y[0]
+    ];
+};
 
 let yInitial = [
     2.0,

@@ -46,8 +46,8 @@ const validateRungeKuttaType = (rungeKuttaType, adaptive) => {
 const rungeKuttaAdaptive = (dy, yInitial, tInitial, tFinal, initialStepSize, errorThreshold, rungeKuttaType) => {
    
     // TODO: Use typed expressions.
-    if (dy.length !== yInitial.length) {
-        throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
+    if (dy(tInitial, yInitial).length !== yInitial.length) {
+        throw `Number derivative functions (${dy(yInitial).length}) does not match number of initial values (${yInitial.length})!`;
     }
    
     if (! Number.isInteger(rungeKuttaType.numStages)) {
@@ -130,8 +130,8 @@ const rungeKuttaAdaptive = (dy, yInitial, tInitial, tFinal, initialStepSize, err
 const rungeKutta = (dy, yInitial, tInitial, tFinal, numSteps, rungeKuttaType) => {
    
     // TODO: Use typed expressions.
-    if (dy.length !== yInitial.length) {
-        throw `Number derivative functions (${dy.length}) does not match number of initial values (${yInitial.length})!`;
+    if (dy(tInitial, yInitial).length !== yInitial.length) {
+        throw `Number derivative functions (${dy(yInitial).length}) does not match number of initial values (${yInitial.length})!`;
     }
    
     if (! Number.isInteger(rungeKuttaType.numStages)) {
@@ -213,7 +213,7 @@ const rungeKuttaAdaptiveTypes = {
 
 const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, rungeKuttaType) => {
 
-    const numVars = dy.length;
+    const numVars = yInitial.length;
     const h = tFinal - tInitial;
     const numStages = rungeKuttaType.numStages;
     const a = rungeKuttaType.a;
@@ -234,9 +234,10 @@ const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, rungeKuttaType) => {
                 y[varIndex] += h * a[s][s2] * k[s - 1][varIndex];
             }
         }
-        for (let varIndex = 0; varIndex < numVars; varIndex++) {
-            k[s][varIndex] = dy[varIndex](t, y);
-        }
+        k[s] = dy(t, y);
+        //for (let varIndex = 0; varIndex < numVars; varIndex++) {
+        //    k[s][varIndex] = dy[varIndex](t, y);
+        //}
     }
 
     let y = new Array(numVars);
@@ -254,7 +255,7 @@ const rungeKuttaStep = (dy, yInitial, tInitial, tFinal, rungeKuttaType) => {
 
 const rungeKuttaStepAdaptive = (dy, yInitial, tInitial, tFinal, rungeKuttaType) => {
 
-    const numVars = dy.length;
+    const numVars = yInitial.length;
     const h = tFinal - tInitial;
     const numStages = rungeKuttaType.numStages;
     const a = rungeKuttaType.a;
@@ -276,9 +277,10 @@ const rungeKuttaStepAdaptive = (dy, yInitial, tInitial, tFinal, rungeKuttaType) 
                 y[varIndex] += h * a[s][s2] * k[s - 1][varIndex];
             }
         }
-        for (let varIndex = 0; varIndex < numVars; varIndex++) {
-            k[s][varIndex] = dy[varIndex](t, y);
-        }
+        k[s] = dy(t, y);
+        //for (let varIndex = 0; varIndex < numVars; varIndex++) {
+        //    k[s][varIndex] = dy[varIndex](t, y);
+        //}
     }
 
     let y = new Array(numVars);

@@ -10,27 +10,25 @@ describe('rungeKutta()', function() {
         it('should give the correct answer for a simple example using Euler\'s method.', function() {
             // From: <https://en.wikipedia.org/wiki/eulerRungeKutta_method>
             const dy = (t, y) => {
-                return y[0];
+                return [y[0]];
             };
 
-            rungeKutta([dy], [1], 0, 4, 4, rungeKuttaTypes.euler).y[0].should.be.approximately(16, 0.01);
-            rungeKutta([dy], [1], 0, 4, 4 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(35.53, 0.01);
-            rungeKutta([dy], [1], 0, 4, 10 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(45.26, 0.01);
-            rungeKutta([dy], [1], 0, 4, 20 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(49.56, 0.01);
-            rungeKutta([dy], [1], 0, 4, 40 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(51.98, 0.01);
-            rungeKutta([dy], [1], 0, 4, 80 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(53.26, 0.01);
+            rungeKutta(dy, [1], 0, 4, 4, rungeKuttaTypes.euler).y[0].should.be.approximately(16, 0.01);
+            rungeKutta(dy, [1], 0, 4, 4 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(35.53, 0.01);
+            rungeKutta(dy, [1], 0, 4, 10 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(45.26, 0.01);
+            rungeKutta(dy, [1], 0, 4, 20 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(49.56, 0.01);
+            rungeKutta(dy, [1], 0, 4, 40 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(51.98, 0.01);
+            rungeKutta(dy, [1], 0, 4, 80 * 4, rungeKuttaTypes.euler).y[0].should.be.approximately(53.26, 0.01);
         });
 
         it('should give the correct answer for a simple 2nd-order ODE using Euler\'s method.', function() {
             // From: http://sites.science.oregonstate.edu/math/home/programs/undergrad/CalculusQuestStudyGuides/ode/second/so_num/so_num.html
-            const dy = [
-                (t, y) => {
-                    return y[1];
-                },
-                (t, y) => {
-                    return -y[1] + Math.sin(t * y[0]);
-                }
-            ];
+            const dy = (t, y) => {
+                    return [
+                        y[1],
+                        -y[1] + Math.sin(t * y[0])
+                    ];
+                };
 
             const y0 = [
                 1,
@@ -57,14 +55,12 @@ describe('rungeKutta()', function() {
 
         it('should give the correct answer for a another simple 2nd-order ODE using Euler\'s method.', function() {
             // From: http://www.math.umd.edu/~petersd/460/html/eulerRungeKutta_demo2.html
-            const dy = [
-                (t, y) => {
-                    return y[1];
-                },
-                (t, y) => {
-                    return t + y[1] - 3 * y[0]; 
-                }
-            ];
+            const dy = (t, y) => {
+                return [
+                    y[1],
+                    t + y[1] - 3 * y[0]
+                ]; 
+            };
 
             const y0 = [
                 1,
@@ -84,9 +80,9 @@ describe('rungeKutta()', function() {
     describe('rungeKuttaType.ralston', function() {
         it('should give the correct answer for a simple example using Ralston\'s method.', function() {
             // From: <https://en.wikipedia.org/wiki/eulerRungeKutta_method>
-            const dy = [(t, y) => {
-                return Math.tan(y) + 1;
-            }];
+            const dy = (t, y) => {
+                return [Math.tan(y) + 1];
+            };
 
             const yInitial = [1];
 
@@ -106,14 +102,12 @@ describe('rungeKutta()', function() {
     describe('rungeKuttaType.rk4', function() {
         it('should give the correct answer for a 2nd-order ODE example using the standard RK4 method.', function() {
             //From <http://lampx.tugraz.at/~hadley/num/ch8/rk4ode2.php>
-            const dy = [
-                (t, y) => {
-                    return y[1];
-                },
-                (t, y) => {
-                    return -y[1] - Math.sin(y[0]) + Math.sin(t);
-                }
-            ];
+            const dy = (t, y) => {
+                return [
+                    y[1],
+                    -y[1] - Math.sin(y[0]) + Math.sin(t)
+                ];
+            };
 
             const yInitial = [0, 1];
 
@@ -199,11 +193,9 @@ describe('rungeKutta()', function() {
         it('should give the correct answer for a 1st-order ODE using the standard RK4 method.', function() {
             // From:
             // <https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf>
-            const dy = [
-                (t, y) => {
-                    return y - Math.pow(t, 2) + 1;
-                }
-            ];
+            const dy = (t, y) => {
+                    return [y - Math.pow(t, 2) + 1];
+                };
 
             const yInitial = [0.5];
             const tInitial = 0;
