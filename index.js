@@ -4,6 +4,7 @@ export {rungeKuttaStep, rungeKutta, rungeKuttaTypes, rungeKuttaAdaptive, rungeKu
 // TODO: Add implicit methods.
 // TODO: A nice looking source for implicit methods is <https://gmd.copernicus.org/articles/11/1497/2018/gmd-11-1497-2018.pdf>
 // TODO: Turn functions into generators, so users can observe and stop them in real-time.
+// TODO: Throw and exception if NaNs are produced.
 
 /**
  * Validate a rungeKuttaType object
