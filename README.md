@@ -1,4 +1,4 @@
-# runge_kutta
+# Runge Kutta
 
 A javascript package that can find approximate solutions of Ordinary Differential Equations (ODEs) using a Runge-Kutta method.
 
